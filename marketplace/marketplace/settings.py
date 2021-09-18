@@ -59,6 +59,8 @@ INSTALLED_APPS = [
     'apps.product',
     'apps.cart',
     'apps.order',
+    'apps.chat',
+    'channels',
 ]
 
 MIDDLEWARE = [
@@ -92,6 +94,16 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'marketplace.wsgi.application'
+ASGI_APPLICATION = 'marketplace.asgi.application'
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            'hosts': [('127.0.0.1' , 6379)],
+        },
+    },
+}
 
 
 # Database
