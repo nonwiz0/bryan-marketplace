@@ -10,3 +10,6 @@ def frontpage(request):
 
 def contact(request):
     return render(request, 'core/contact.html')
+
+def chat(request):
+    return render(request, 'chat/index.html')
