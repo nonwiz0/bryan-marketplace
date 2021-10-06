@@ -13,3 +13,5 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+ // accordions now contains an array of all Accordion instances

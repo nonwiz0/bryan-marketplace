@@ -3,13 +3,13 @@
 {% block title %} Edit vendor | {% endblock %}
 
 {% block content%}
-    <h1 class="title"> Edit vendor </h1>
+    <h1 class="title"> Edit Profile </h1>
 
     <form method="post" action=".">
         {% csrf_token %}
 
     <div class="field">
-        <label>Vendor Name</label>
+        <label>Display Name</label>
     
         <div class="control">
             <input type="text" name="name" id="id_name" value="{{ vendor.name }}" class="input">
@@ -27,9 +27,41 @@
     </div>
 
     <div class="field">
+        <label>Birth Date</label>
+
+        <div class="control">
+            <input type="date" name="birth_date" id="id_birth_date" value="{{ vendor.birth_date }}" class="input">
+        </div>
+    </div>
+    
+    <div class="field">
+        <label>Location</label>
+
+        <div class="control">
+            <input type="name" name="location" id="id_location" value="{{ vendor.location }}" class="input">
+        </div>
+    </div>
+
+    <div class="field">
+        <label>Profile Picture</label>
+
+        <div class="control">
+            <input type="file" name="profile_picture" id="id_profile_picture" value="{{ vendor.profile_picture }}" onchange="loadFile(event)" class="input">
+                <figure class="image is-128x128 is-pulled-right mt-6" >
+                    <img class="is-rounded" src="{{ vendor.thumbnail.url }}">
+                </figure>
+        </div>
+    </div>
+   
+
+    
+
+    <div class="field">
         <div class="control">
             <button class="button is-dark is-uppercase">Save changes</button>
         </div>
     </div>
 </form>
+
+    
 {% endblock %}

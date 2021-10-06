@@ -1,7 +1,16 @@
 {% extends 'core/base.html' %}
 
-{% block title %} Contact | Marketplace {% endblock %}
-
 {% block content %}
-<h1>Contact</h1>
-{% endblock %}
+<div class="container">
+    <div class="row justify-content-center mt5">
+        <div class="col-md-10 col-sm-12 text-center">
+            <h1 class="display-2">Connect with Friends and Start Selling!</h1>
+            <p class="mt-3 lead">Be part of the community to be able to buy and sell products in need to one another</p>
+            <div class="d-flex justify-content-center mt-5">
+                <a href="{% url 'account_login' %}" class="btn btn-light mr-2">Login</a>
+                <a href="{% url 'account_signup' %}" class="btn btn-dark">Register</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

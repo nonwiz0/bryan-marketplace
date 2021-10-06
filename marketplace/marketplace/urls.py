@@ -29,5 +29,7 @@ urlpatterns = [
     path('', include('apps.product.urls')),
 
     path('chat/accounts/', include('allauth.urls')),
+
+    path('inbox/', include('apps.inbox.urls')),
    
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

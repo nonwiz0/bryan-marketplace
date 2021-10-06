@@ -56,3 +56,24 @@
     animation-name: show-toast;
     animation-duration: 4s;
 }
+
+/* Profile Image */
+
+.rounded-img-container {
+
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    
+  }
+  /* .rounded-img {
+    width: inherit;
+    height: inherit;
+    border-radius: inherit;
+    
+    object-fit: cover;
+    object-position: center;
+  } */
+
+  

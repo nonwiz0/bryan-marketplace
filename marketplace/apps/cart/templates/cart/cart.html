@@ -52,6 +52,8 @@
             </div>
         </div>
 
+        <hr>
+
         <h2 class="subtitle">Contact information</h2>
 
         <form method="post" action="." id="payment-form">
@@ -136,6 +138,7 @@
                 </div>
             </div>
 
+
             <h2 class="subtitle">Payment information</h2>
 
             <div id="card-element">
@@ -148,50 +151,25 @@
                 {% endfor %}
             {% endif %}
 
+            <hr>
+
             <div class="field">
                 <div class="control">
-                    <button class="button is-dark mt-4 is-uppercase">Checkout</button>
+                    <button class="button is-dark mt-4 is-uppercase">Pay in Cash</button>
                 </div>
             </div>
+
+            <div class="field">
+                <div class="control">
+                   <a href="{% url 'cart_online' %}" button class="button is-dark mt-4 is-uppercase">Pay Online</button></a>
+                </div>
+            </div>
+
         </div>
     {% else %}
         <p>You don't have any products in your cart!</p>
     {% endif %}
-{% endblock %}
 
-{% block scripts %}
-        <script src="https://js.stripe.com/v3/"></script>
-        <script>
-            var stripe = Stripe('{{ stripe_pub_key }}');
-            var elements = stripe.elements();
+    
 
-            var card = elements.create('card');
-
-            card.mount('#card-element');
-
-            var form = document.getElementById('payment-form');
-            form.addEventListener('submit', function(event) {
-                event.preventDefault();
-
-                stripe.createToken(card).then(function(result) {
-                    if (result.error) {
-                        var errorElement = document.getElementById('card-errors');
-                        errorElement.textContent = result.error.message;
-                    } else {
-                        stripeTokenHandler(result.token);
-                    }
-                });
-            });
-
-            function stripeTokenHandler(token) {
-                var form = document.getElementById('payment-form');
-                var hiddenInput = document.createElement('input');
-                hiddenInput.setAttribute('type', 'hidden');
-                hiddenInput.setAttribute('name', 'stripe_token');
-                hiddenInput.setAttribute('value', token.id);
-                form.appendChild(hiddenInput);
-
-                form.submit()
-            }
-        </script>
 {% endblock %}

@@ -2,6 +2,8 @@ from django.shortcuts import render
 
 from apps.product.models import Product
 
+from apps.inbox.models import ThreadModel
+
 # Create your views here.
 def frontpage(request):
      latest_products = Product.objects.all()[0:8]
@@ -13,3 +15,7 @@ def contact(request):
 
 def chat(request):
     return render(request, 'chat/index.html')
+
+def inbox(request):
+    return render(request, 'inbox/inbox.html')
+

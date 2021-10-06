@@ -4,23 +4,61 @@
 
 {% block content%}
     <div class="box">
-        <h1 class="title">Vendor admin - {{ vendor.name }}</h1>
+        <div class="level-item is-pulled-left">
+            <div>
+                <h1 class="title">{{ vendor.name }}</h1><br>
+                <h2 class="birth_date">{{ vendor.birth_date }}</h2>
+                <h2 class="location">Lives in {{ vendor.location }}</h2>
 
-        <strong>My balance: </strong>${{ vendor.get_balance }}<br>
-        <strong>My paid amount: </strong>${{ vendor.get_paid_amount }}
+                <div class="mb-3">
+                    <p>Like: {{ num_followers }}</p>
+                    {% if user.vendor == self.request.user.vendor %}
+                    {% else %}
+                    {% if is_following %}
+                    <form method="POST" action="{% url 'remove_follower' vendor.pk %}">
+                        {% csrf_token %}
+                        <button class="btn btn-outline-danger" type="submit">Unlike</button>
+                    </form>
+                    {% else %}
+                    <form method="POST" action="{% url 'add_follower' vendor.pk %}">
+                        {% csrf_token %}
+                        <button class="btn btn-outline-success" type="submit">Like</button>
+                    </form>
+                    {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="level-item">
+            <figure class="image is-128x128">
+                <img class="is-rounded" src="{{ vendor.thumbnail.url }}">
+            </figure>
+        </div>
+
+
+    <hr>
+    
+    <!-- <div class="box">    -->
+        <a href="{% url 'edit_vendor' %}" class="button is-info is-uppercase">Edit Profile</a>
+        <a href="{% url 'logout' %}" class="button is-danger is-uppercase">Log out</a>
+        <a href="{% url 'confirmed_order' %}" class="button is-success is-uppercase mb-6 cent">Confirmed Order</a></h2>
+
+        <!-- <div class="level-item has-text-centered is-pulled-right">
+            <strong>In cart price total:</strong> ${{ vendor.get_balance }} -->
+            <!-- <strong>My paid amount: </strong>${{ vendor.get_paid_amount }}
+        </div> -->
+    </div>
+</div>
 
         <hr>
         
-        <a href="{% url 'edit_vendor' %}" class="button is-info is-uppercase">Edit</a>
-        <a href="{% url 'logout' %}" class="button is-danger is-uppercase">Log out</a>
-    </div>
-
     <div class="box">
-        <h2 class="is-size-3 mb-4">My products</h2>
+        <h2 class="is-size-3 mb-4">My Active Posts
+            <a href="{% url 'add_product' %}" class="button is-black is-outlined is-uppercase mb-6 is-pulled-right">Add product
+            <a href="{% url 'product_table' %}" class="button is-link is-outlined is-uppercase mb-6 is-pulled-right">Product in List</a></h2>
 
-        <a href="{% url 'add_product' %}" class="button is-dark is-uppercase mb-6">Add product</a>
-
-        {% if products %}
+        <!-- {% if products %}
             <table class="table is-fullwidth">
                 <thead>
                     <tr>
@@ -32,64 +70,29 @@
                 <tbody>
                     {% for product in products %}
                         <tr>
-                            <td><a href="{% url 'product' product.category.slug product.slug %}">{{ product.title }}</td>
+                            <td><a href="{% url 'product' product.category.slug product.slug %}">
+                                {{ product.title }}</td>
                             <td>{{ product.price }}</td>
                         </tr>
                     {% endfor %}
                 </tbody>
-            </table>
+            </table> -->
+    <div class="columns is-multiline mb-6">
+        <div class="column is-12 has-text-centered mt-1 mb-6">
+       
+        </div>
+
+        {% for product in vendor.products.all %}
+            {% include 'product/parts/list_item.html' %}
+        {% endfor %}
+    </div>
         {% else %}
             <p>You do not have any product in store</p>
         {% endif %}
     </div>
 
-    <div class="box">
-        <h2 class="is-size-3 mb-4">My orders</h2>
-
-        {% if orders %}
-            {% for order in orders %}
-                <div class="{% if order.fully_paid %}has-background-success-light{% else %}has-background-info-light{% endif %} mb-2 p-4"></div>
-                    <div class="columns is-multiline">
-                        <div class="column is-6">
-                            <h3 class="is-size-4">#{{ order.id }} - {{ order.first_name }} {{ order.last_name }}</h3>
-                        </div>
-
-                        <div class="column is-12">
-                            <b>Name:</b> {{ order.first_name }} {{ order.last_name }}<br>
-                            <b>Address:</b> {{ order.address }}<br>
-                            <b>Zip and place:</b> {{ order.zipcode }} {{ order.place }}<br>
-                            <b>Email:</b> {{ order.email }}<br>
-                            <b>Phone:</b> {{ order.phone }}<br>
-
-                            <table class="table is-fullwidth mt-4">
-                                <thead>
-                                    <tr>
-                                        <th>Title</th>
-                                        <th>Price</th>
-                                        <th>Quantity</th>
-                                        <th>Paid</th>
-                                        <th>Total</th>
-                                    </tr>
-                                </thead>
-                            
-                                <tbody>
-                                    {% for item in order.items.all %}
-                                        {% if item.vendor == request.user.vendor %}
-                                            <tr>
-                                                <td>{{ item.product.title }}</td>
-                                                <td>{{ item.product.price }}</td>
-                                                <td>{{ item.quantity}}</td>
-                                                <td>{{ item.vendor_paid|yesno:"Yes,No" }}</td>
-                                                <td>{{ item.get_total_price }}</td>
-                                            </tr>
-                                        {% endif %}
-                                    {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        {% endif %} 
-    </div>
+    
+    <script>
+        
+    </script>
 {% endblock %}
