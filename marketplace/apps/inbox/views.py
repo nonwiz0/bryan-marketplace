@@ -47,8 +47,8 @@ def post(self, request, *args, **kwargs):
     except:
         return redirect('create-thread')
 
-class Inbox(generic.TemplateView):
-    template_name = 'inbox/inbox.html'
+# class Inbox(generic.TemplateView):
+#     template_name = 'inbox/inbox.html'
 
 class ListThreads(View):
       def get(self, request, *args, **kwargs):
