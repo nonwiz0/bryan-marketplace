@@ -12,6 +12,8 @@ from .models import ThreadModel, MessageModel
 from django.views import View
 
 from django.db.models import Q
+from datetime import datetime
+import hashlib
 
 
 from django.views import generic

@@ -29,9 +29,13 @@ def become_vendor(request):
 
 @login_required
 def vendor_admin(request):
+    # So this is the profile
     vendor = request.user.vendor
     products = vendor.products.all()
     orders = vendor.orders.all()
+    inbox = ["none"]
+    if "messages" in vendor.inbox:
+        inbox = vendor.inbox["messages"]
 
     followers = vendor.followers.all()
 
@@ -60,7 +64,7 @@ def vendor_admin(request):
                     order.vendor_amount += item.get_total_price()
                     order.fully_paid = False
 
-    return render(request, 'vendor/vendor_admin.html', {'vendor': vendor, 'products': products, 'orders': orders})
+    return render(request, 'vendor/vendor_admin.html', {'vendor': vendor, 'products': products, 'orders': orders, 'inbox': inbox})
 
 @login_required
 def add_product(request):

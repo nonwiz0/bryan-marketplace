@@ -1,8 +1,9 @@
 from apps.chat.models import ChatRoom
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Chat, ChatRoom
+from django.contrib import messages
 # Create your views here.
 
 class Index(LoginRequiredMixin, View):
@@ -19,5 +20,15 @@ class Room(LoginRequiredMixin, View):
         else: 
             room = ChatRoom(name=room_name)
             room.save()
-
+        all_inbox = request.user.vendor.inbox
+        if "messages" in all_inbox:
+            all_room = [item["id"] for item in all_inbox["messages"]]
+            if not room_name in all_room:
+                print("This user is not authorize")
+                messages.add_message(request, messages.INFO, "You are not authorize to this chat")
+                return redirect('frontpage')
+            else :
+                print("authorized")
+            
+        print("chat room is running", room_name)
         return render(request, 'chat/room.html', {'room_name': room_name, 'chats': chats})

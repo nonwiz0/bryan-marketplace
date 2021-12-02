@@ -14,17 +14,17 @@
                     <p>Like: {{ num_followers }}</p>
                     {% if user.vendor == self.request.user.vendor %}
                     {% else %}
-                    {% if is_following %}
-                    <form method="POST" action="{% url 'remove_follower' vendor.pk %}">
-                        {% csrf_token %}
-                        <button class="btn btn-outline-danger" type="submit">Unlike</button>
-                    </form>
-                    {% else %}
-                    <form method="POST" action="{% url 'add_follower' vendor.pk %}">
-                        {% csrf_token %}
-                        <button class="btn btn-outline-success" type="submit">Like</button>
-                    </form>
-                    {% endif %}
+                        {% if is_following %}
+                            <form method="POST" action="{% url 'remove_follower' vendor.pk %}">
+                                {% csrf_token %}
+                                <button class="btn btn-outline-danger" type="submit">Unlike</button>
+                            </form>
+                        {% else %}
+                            <form method="POST" action="{% url 'add_follower' vendor.pk %}">
+                                {% csrf_token %}
+                                <button class="btn btn-outline-success" type="submit">Like</button>
+                            </form>
+                        {% endif %}
                     {% endif %}
                 </div>
             </div>
@@ -37,62 +37,73 @@
         </div>
 
 
-    <hr>
-    
-    <!-- <div class="box">    -->
+        <hr>
+
+        <!-- <div class="box">    -->
         <a href="{% url 'edit_vendor' %}" class="button is-info is-uppercase">Edit Profile</a>
         <a href="{% url 'logout' %}" class="button is-danger is-uppercase">Log out</a>
         <a href="{% url 'confirmed_order' %}" class="button is-success is-uppercase mb-6 cent">Confirmed Order</a></h2>
 
-        <!-- <div class="level-item has-text-centered is-pulled-right">
-            <strong>In cart price total:</strong> ${{ vendor.get_balance }} -->
-            <!-- <strong>My paid amount: </strong>${{ vendor.get_paid_amount }}
-        </div> -->
+    <!-- <div class="level-item has-text-centered is-pulled-right">
+        <strong>In cart price total:</strong> ${{ vendor.get_balance }} -->
+        <!-- <strong>My paid amount: </strong>${{ vendor.get_paid_amount }}
+            </div> -->
+        </div>
     </div>
-</div>
 
-        <hr>
-        
+    <hr>
+
+    <div class="box">
+        <h2 class="is-size-3 mb-4"> Inbox List </h2>
+        <ul>
+            {% for item in inbox %}
+            <li> <a href="/chat/{{ item.id }}">{% if vendor.name != item.seller %} From: {{ item.seller }} {% else %} To: {{ item.buyer }} {% endif %} | {{ item.product }}</a></li>
+            {% endfor %}
+        </ul>
+
+    </div>
     <div class="box">
         <h2 class="is-size-3 mb-4">My Active Posts
             <a href="{% url 'add_product' %}" class="button is-black is-outlined is-uppercase mb-6 is-pulled-right">Add product
-            <a href="{% url 'product_table' %}" class="button is-link is-outlined is-uppercase mb-6 is-pulled-right">Product in List</a></h2>
+                <a href="{% url 'product_table' %}" class="button is-link is-outlined is-uppercase mb-6 is-pulled-right">Product in List</a></h2>
 
         <!-- {% if products %}
-            <table class="table is-fullwidth">
+                <table class="table is-fullwidth">
                 <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>Price</th>
-                    </tr>
+                <tr>
+                <th>Title</th>
+                <th>Price</th>
+                </tr>
                 </thead>
 
                 <tbody>
-                    {% for product in products %}
-                        <tr>
-                            <td><a href="{% url 'product' product.category.slug product.slug %}">
-                                {{ product.title }}</td>
-                            <td>{{ product.price }}</td>
-                        </tr>
-                    {% endfor %}
+                {% for product in products %}
+                    <tr>
+                    <td><a href="{% url 'product' product.category.slug product.slug %}">
+                    {{ product.title }}</td>
+                    <td>{{ product.price }}</td>
+                    </tr>
+                {% endfor %}
                 </tbody>
-            </table> -->
-    <div class="columns is-multiline mb-6">
-        <div class="column is-12 has-text-centered mt-1 mb-6">
-       
-        </div>
+                </table> -->
+                <div class="columns is-multiline mb-6">
+                    <div class="column is-12 has-text-centered mt-1 mb-6">
 
-        {% for product in vendor.products.all %}
-            {% include 'product/parts/list_item.html' %}
-        {% endfor %}
-    </div>
-        {% else %}
-            <p>You do not have any product in store</p>
-        {% endif %}
+                    </div>
+
+                    {% for product in vendor.products.all %}
+                        {% include 'product/parts/list_item.html' %}
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p>You do not have any product in store</p>
+            {% endif %}
     </div>
 
-    
+
+
+
     <script>
-        
+
     </script>
 {% endblock %}

@@ -16,6 +16,7 @@ class Vendor(models.Model):
     profile_picture = models.ImageField(upload_to='uploads/profile_pictures', default='uploads/profile_pictures/iphone12.jpg', blank=True, null=True)
     thumbnail = models.ImageField(upload_to='uploads/profile_pictures', default='uploads/profile_pictures/iphone12.jpg', blank=True, null=True)
     followers = models.ManyToManyField(User, blank=True, related_name='followers')
+    inbox = models.JSONField(null=True)
 
     class Meta:
         ordering = ['name']

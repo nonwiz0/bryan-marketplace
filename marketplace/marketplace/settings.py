@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-&tex*iwpd%2a0u$ppv(b4&ts2ns%4@hq#b+*_jjwkeed*kw6#m
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 STRIPE_PUB_KEY = 'pk_test_51Ja01iKbqoeFvr1jUYfhJObZ8UYnn0gZCs7JjpXYer0EaoFeQujseLtXQdlsSrPQDOmEioQ0Zck6x4gkHvhRKeLA00Ibwe8orC'
 STRIPE_SECRET_KEY = 'sk_test_51Ja01iKbqoeFvr1j3s6m1bNInFAC88NBq0JhUVJVJx0eVt917MbE34K3wQ4qWXd78yDI1DhWwyw1o9Btyc4YNzct00Zv3YWQh1'
@@ -62,9 +62,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     'django.contrib.sites',
-
     'apps.core',
     'apps.vendor',
     'apps.product',
@@ -73,7 +71,6 @@ INSTALLED_APPS = [
     'apps.chat',
     'channels',
     'apps.inbox',
-
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
