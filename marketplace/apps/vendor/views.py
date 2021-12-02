@@ -33,8 +33,8 @@ def vendor_admin(request):
     vendor = request.user.vendor
     products = vendor.products.all()
     orders = vendor.orders.all()
-    inbox = ["none"]
-    if "messages" in vendor.inbox:
+    inbox = []
+    if vendor.inbox and "messages" in vendor.inbox:
         inbox = vendor.inbox["messages"]
 
     followers = vendor.followers.all()

@@ -58,6 +58,8 @@
         <ul>
             {% for item in inbox %}
             <li> <a href="/chat/{{ item.id }}">{% if vendor.name != item.seller %} From: {{ item.seller }} {% else %} To: {{ item.buyer }} {% endif %} | {{ item.product }}</a></li>
+            {% empty %}
+                <p> You haven't send any message to someone yet </p>
             {% endfor %}
         </ul>
 
